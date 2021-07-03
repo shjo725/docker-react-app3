@@ -12,5 +12,14 @@ before_install:
 script:
   - docker run -e CI=true 5zinda/docker-react-app3 npm run test -- --coverage
 
-after_success:
-  - echo "Test Success!"
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react-app"
+  env: "Dockerreactapp-env"
+  bucket_name: "elasticbeanstalk-us-east-2-514518641385"
+  bucket_path: "elasticbeanstalk-us-east-2-514518641385"
+  on:
+    branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key_id: $AWS_SECRET_ACCESS_KEY
